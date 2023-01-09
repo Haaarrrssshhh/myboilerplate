@@ -12,3 +12,18 @@ export class CustomError extends Error {
   }
 }
 
+class DefinedErrors {
+  public authFailed:CustomError = new CustomError('Authorization Failed!',
+    `Uh oh! i can't tell you anymore #BruteForcers! alert`,
+    401,
+    ""
+  );
+  public dataInvalid:CustomError = new CustomError(
+    'Data Invalid!',
+    `Uh oh! the data you've sent is not as expected #Contact the developer!`,
+    417,
+    ""
+  );
+}
+
+export default new DefinedErrors;

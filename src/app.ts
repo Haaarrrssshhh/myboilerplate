@@ -2,6 +2,7 @@ import express, { Application, Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import { CustomError } from './bin/custom/Error'
 import Log from './bin/custom/Log';
+import Routes from './bin/routes';
 // import { Routes } from './api/routes';
 
 class App {
@@ -35,8 +36,9 @@ class App {
       next();
     });
 
+    this.app.use("/",Routes.router)
 
-    //******* ERROR HANDLING *******\\
+    // //******* ERROR HANDLING *******\\
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       const error = new CustomError(
         'Not Found!',

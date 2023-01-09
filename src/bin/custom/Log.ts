@@ -26,6 +26,7 @@ class Log {
 
 	// Adds INFO prefix string to the log string
 	public info (_string: string): void {
+		console.log('\x1b[32m%s\x1b[0m','[INFO] :: ' + _string.split(/r?\n/)[0]);
 		this.addLog('INFO', _string);
 	}
 
