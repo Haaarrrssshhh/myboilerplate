@@ -4,20 +4,23 @@ import Log from "./Log";
 
 class IResponse{
 
-    sendResponse(req:Request,res:Response,controller:Function){
+    async sendResponse(req:Request,res:Response,controller:Function){
         try {
-            let data = controller(req,res);
+            let data = await controller(req,res);
             Log.info(`${req.method}: ${req.originalUrl}`)
             res.status(200).json({
                 error: false,
                 data:data,
             });
         } catch (error:CustomError | any) {
+            console.log("here",typeof error);
+            
             Log.error(error.message)
             res.status(error.code || 500).json({
                 error: true,
                 data:error,
             });
+            
         }
     }
 }

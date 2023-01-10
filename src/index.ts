@@ -1,10 +1,11 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import app from './app';
 import { createServer } from "http";
 import { Server } from "socket.io";
-import * as dotenv from 'dotenv'
 import Log from './bin/custom/Log';
 import ISocket from './bin/socket/ISocket';
-dotenv.config()
+import Database from './connection';
 
 const port = process.env.PORT;
 console.log("Server has started");
@@ -34,6 +35,6 @@ io.of("/").adapter.on("join-room", (room, id) => {
 
 
 httpServer.listen(port,0,()=>{
-    Log.info('App started')
-  console.log(`App Started on ${port}`);
+    Log.info(`App started on ${port}`)
+    new Database();
 });

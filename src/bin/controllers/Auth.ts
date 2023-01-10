@@ -1,28 +1,39 @@
 import { Request, Response } from "express";
-import User from "../interfaces/User";
+import { IUser } from "../interfaces/User";
 import DefinedErrors, { CustomError } from '../custom/Error'
 import Log from "../custom/Log";
+import User from "../models/User";
 
 
 class Auth {
-   public user:User | undefined={name:"test",username:"test",password:"123"};
+   
    constructor(){
    }
 
    public login(req:Request,res:Response):Object{
         let body = req.body;
         if(!body.username || !body.password) throw DefinedErrors.dataInvalid;
-
-        if(!(body.username == this.user?.username) || !(body.password == this.user?.password)) throw DefinedErrors.authFailed;
         return {
             message:"Logged In Successfully"
         }
    }
 
    public getUser(req:Request,res:Response):any{
-            if(!this.user) throw DefinedErrors.authFailed;
+        return null
+   }
 
-            return this.user;
+   public async createUser(req:Request,res:Response):Promise<any>{
+    let body = req.body;
+    if(!body.username || !body.email || !body.password) throw DefinedErrors.dataInvalid;
+    
+    let user:IUser = new User({
+        username:body.username,
+        email:body.email,
+        password:body.password
+
+    });
+    await user.save()
+    return user
    }
 }
 export default new Auth;

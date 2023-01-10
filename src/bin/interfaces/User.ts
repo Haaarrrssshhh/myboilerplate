@@ -1,3 +1,4 @@
+import { Document } from "mongoose";
 
 
 interface User{
@@ -5,5 +6,13 @@ interface User{
     username:string,
     password:string
 }
+
+export type TUser = {
+    email:string,
+    username:string,
+    password:string,
+}
+
+export interface IUser extends TUser, Document {}
 
 export default User;

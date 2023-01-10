@@ -9,6 +9,7 @@ class AuthRoutes{
     constructor(){
         this.routes.get("/get",(req:Request,res:Response)=>IResponse.sendResponse(req,res,(req:Request,res:Response)=>Auth.getUser(req,res)));
         this.routes.post("/login",(req:Request,res:Response)=>IResponse.sendResponse(req,res,(req:Request,res:Response)=>Auth.login(req,res)));
+        this.routes.post("/createUser",(req:Request,res:Response)=>IResponse.sendResponse(req,res,(req:Request,res:Response)=>Auth.createUser(req,res)));
     }
 }
 
