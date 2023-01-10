@@ -6,6 +6,7 @@ import { Server } from "socket.io";
 import Log from './bin/custom/Log';
 import ISocket from './bin/socket/ISocket';
 import Database from './connection';
+import Rooms from './bin/socket/Rooms';
 
 const port = process.env.PORT;
 console.log("Server has started");
@@ -17,10 +18,11 @@ console.log("Server has started");
 
 const httpServer = createServer(app);
 const io = new Server(httpServer,);
+const allRooms:Rooms[] = [];
 
 io.on("connection", (socket) => {
   Log.info(`New user connected with socket Id: ${socket.id}`)
-  new ISocket(socket,io);
+  new ISocket(socket,io,allRooms);
   const rooms = io.of("/").adapter.rooms;
   console.log(rooms)
 });
